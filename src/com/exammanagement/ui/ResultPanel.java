@@ -24,6 +24,7 @@ public class ResultPanel extends JPanel {
     private JLabel lblCorrectAnswer;
     private JTextArea txtAiExplanation;
     private JButton btnNextReview;
+    JLabel lblChatTitle;
 
     // Right Panel Variables (Chat)
     private JTextArea txtChatHistory;
@@ -84,7 +85,7 @@ public class ResultPanel extends JPanel {
 
         btnNextReview = createStyledButton("Next Wrong Answer ➡", UiTheme.ACCENT);
         btnNextReview.setAlignmentX(Component.LEFT_ALIGNMENT); 
-        btnNextReview.addActionListener(e -> showNextWrongAnswer());
+        btnNextReview.addActionListener(e -> handleReviewButton());
 
         leftCard.add(lblReviewTitle);
         leftCard.add(Box.createVerticalStrut(15));
@@ -109,7 +110,7 @@ public class ResultPanel extends JPanel {
         // ==========================================
         JPanel rightCard = createDarkCard();
         
-        JLabel lblChatTitle = new JLabel("💬 Ask Anything, " + getUsernameSafe());
+        lblChatTitle = new JLabel("💬 Ask Anything, Student");
         lblChatTitle.setFont(new Font("SansSerif", Font.BOLD, 18));
         lblChatTitle.setForeground(UiTheme.ACCENT);
         lblChatTitle.setAlignmentX(Component.LEFT_ALIGNMENT); // FIX: Left align
@@ -168,6 +169,11 @@ public class ResultPanel extends JPanel {
         this.currentReviewIndex = 0;
 
         lblScore.setText("Exam Completed! Your Score: " + score + " / " + total);
+        lblYourAnswer.setVisible(true);
+        lblCorrectAnswer.setVisible(true);
+        lblChatTitle.setText("💬 Ask Anything, "+getUsernameSafe());
+        txtAiExplanation.setVisible(true);
+        btnNextReview.setText("Next Wrong Answer ➡");
 
         for (int i = 0; i < total; i++) {
             String u = userAnswers.get(i);
@@ -182,14 +188,8 @@ public class ResultPanel extends JPanel {
             lblYourAnswer.setVisible(false);
             lblCorrectAnswer.setVisible(false);
             txtAiExplanation.setVisible(false);
-            btnNextReview.setEnabled(false);
-
-            Timer delay = new Timer(2000, e->{
-                DashboardPanel.resetButton();
-                MainFrame.instance.switchScreen("DASHBOARD");
-            });
-            delay.setRepeats(false);
-            delay.start();
+            btnNextReview.setText("Back to Dashboard");
+            btnNextReview.setEnabled(true);
         } else {
             loadWrongAnswer(0);
         }
@@ -201,13 +201,8 @@ public class ResultPanel extends JPanel {
             lblYourAnswer.setText("");
             lblCorrectAnswer.setText("");
             txtAiExplanation.setText("");
-            btnNextReview.setEnabled(false);
-            Timer delay = new Timer(2000, e->{
-                DashboardPanel.resetButton();
-                MainFrame.instance.switchScreen("DASHBOARD");
-            });
-            delay.setRepeats(false);
-            delay.start();
+            btnNextReview.setText("Back to Dashboard");
+            btnNextReview.setEnabled(true);
             
             return;
         }
@@ -246,6 +241,16 @@ public class ResultPanel extends JPanel {
     private void showNextWrongAnswer() {
         currentReviewIndex++;
         loadWrongAnswer(currentReviewIndex);
+    }
+
+    private void handleReviewButton() {
+        if (currentReviewIndex < wrongQuestionIndices.size()) {
+            showNextWrongAnswer();
+            return;
+        }
+
+        DashboardPanel.resetButton();
+        MainFrame.instance.switchScreen("DASHBOARD");
     }
 
     private void sendChatMessage() {

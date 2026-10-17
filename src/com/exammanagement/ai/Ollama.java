@@ -34,10 +34,11 @@ public class Ollama {
 
         
         String examPrompt = "You are an expert exam generator. " +
-    "You MUST generate EXACTLY " + numberOfQuestions + " multiple-choice questions for the subject: '" + subject + "', topic: '" + topic + "'. " +
-    "CRITICAL RULE: You must output a JSON object containing the exact count and the array of questions. Do not stop early. " +
-    "Return ONLY valid JSON in this exact format: " +
-    "{\"total_questions\": " + numberOfQuestions + ", \"questions\": [{\"question\": \"...\", \"options\": [\"...\", \"...\", \"...\", \"...\"], \"answer\": \"...\"}]}";
+            "You MUST generate EXACTLY " + numberOfQuestions + " multiple-choice questions for the subject: '" + subject + "', topic: '" + topic + "'. " +"'10 Questions'"+
+            "CRITICAL RULE: You must output a JSON object containing the exact count and the array of questions. Do not stop early. " +
+            "Return ONLY valid JSON in this exact format: " +
+            "{\"total_questions\": " + numberOfQuestions + ", \"questions\": [{\"question\": \"...\", \"options\": [\"...\", \"...\", \"...\", \"...\"], \"answer\": \"...\"}]}";
+
         List<Questions> questionList = new ArrayList<>();
         HttpURLConnection con = null;
         
@@ -146,7 +147,7 @@ public class Ollama {
 
             JSONObject request = new JSONObject()
                     .put("model", MODEL_NAME)
-                    .put("prompt", explanationPrompt) // Using the new prompt
+                    .put("prompt", explanationPrompt) 
                     .put("format", "json")
                     .put("stream", false);
 
@@ -195,7 +196,7 @@ public class Ollama {
             org.json.JSONObject request = new org.json.JSONObject()
                     .put("model", MODEL_NAME)
                     .put("prompt", prompt)
-                    .put("stream", false);
+                    .put("stream", true);
 
             try(OutputStream os = con.getOutputStream()){
                 byte[] input = request.toString().getBytes("utf-8");

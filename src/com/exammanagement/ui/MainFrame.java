@@ -32,7 +32,9 @@ public class MainFrame extends JFrame{
         instance = this;
 
         UiTheme.apply();
+
         setTitle("AI Exam Management System");
+
         getContentPane().setBackground(UiTheme.BACKGROUND);
 
         setMinimumSize(new Dimension(1024, 768));
@@ -42,17 +44,21 @@ public class MainFrame extends JFrame{
         setLocationRelativeTo(null);
 
         cardLayout = new CardLayout();
+
         mainContainer = new JPanel(cardLayout);
+
         mainContainer.setBackground(UiTheme.BACKGROUND);
 
         loginPanel = new LoginPanel();
         dashboardPanel = new DashboardPanel();
         examPanel = new ExamPanel();
+        resultPanel = new ResultPanel();
         
 
         mainContainer.add(loginPanel, "LOGIN");
         mainContainer.add(dashboardPanel, "DASHBOARD");
         mainContainer.add(examPanel, "EXAM");
+        mainContainer.add(resultPanel,"RESULT");
         
 
         add(mainContainer);
@@ -111,16 +117,12 @@ public class MainFrame extends JFrame{
     }
 
     public void showResultScreen(int score, int total, List<Questions> questions, HashMap<Integer, String> uAns, HashMap<Integer, String> cAns) {
-        if(resultPanel != null) mainContainer.remove(resultPanel);
-        resultPanel = new ResultPanel();
-        mainContainer.add(resultPanel,"RESULT");
-
-        // Disable Kiosk mode and return to normal window state
+        
         if (isUndecorated()) {
             dispose(); 
             setUndecorated(false);
             setExtendedState(JFrame.NORMAL);
-            setSize(1200, 800); // Make it slightly wider for the split screen
+            setSize(1200, 800); 
             setLocationRelativeTo(null);
             setVisible(true);
         }
@@ -130,6 +132,8 @@ public class MainFrame extends JFrame{
         
         // Switch screen
         cardLayout.show(mainContainer, "RESULT");
+        revalidate();
+        repaint();
     }
     
 }
