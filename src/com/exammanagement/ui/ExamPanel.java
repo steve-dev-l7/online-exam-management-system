@@ -268,12 +268,14 @@ public class ExamPanel extends JPanel {
 
                 int currentXp = MainFrame.instance.getCurrentUser().getScore();
                 MainFrame.instance.getCurrentUser().setScore(currentXp + score);
+                MainFrame.instance.showResultScreen(score, total, questionList, userAnswer, secretAnswerKey);
             }
         }else{
+            MainFrame.instance.switchScreen("DASHBOARD");
             DashboardPanel.resetButton();
         }
 
-        MainFrame.instance.showResultScreen(score, total, questionList, userAnswer, secretAnswerKey);
+        
     }
 
 
