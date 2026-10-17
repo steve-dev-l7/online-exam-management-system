@@ -161,7 +161,7 @@ public class ExamPanel extends JPanel {
         displayQuestion(0);
         startTimer();
 
-        Timer delaySetUp = new Timer(2000, e ->{setupAntiCheat();});
+        Timer delaySetUp = new Timer(2000, e -> {setupAntiCheat();});
         delaySetUp.setRepeats(false);
         delaySetUp.start();
     
@@ -219,7 +219,7 @@ public class ExamPanel extends JPanel {
             }else{
                 examTimer.stop();
                 JOptionPane.showMessageDialog(this, "Time is up! Auto-submitting exam.", "Timeout", JOptionPane.WARNING_MESSAGE);
-                submitExam(true);
+                submitExam(false);
             }
 
         });

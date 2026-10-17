@@ -14,6 +14,7 @@ public class LoginPanel extends JPanel {
     private JButton btnSignIn;
 
     public LoginPanel() {
+
         setBackground(UiTheme.BACKGROUND);
         setLayout(new GridBagLayout()); 
         
@@ -175,6 +176,7 @@ public class LoginPanel extends JPanel {
 
         // Actions
         btnSignIn.addActionListener(e -> attemptLogin());
+        
         btnReset.addActionListener(e -> {
             txtUsername.setText("");
             txtPassword.setText("");

@@ -33,7 +33,7 @@ public class MainFrame extends JFrame{
 
         UiTheme.apply();
 
-        setTitle("AI Exam Management System");
+        setTitle(" Exam Management System");
 
         getContentPane().setBackground(UiTheme.BACKGROUND);
 

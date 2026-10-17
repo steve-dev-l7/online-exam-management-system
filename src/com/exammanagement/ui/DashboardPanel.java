@@ -136,13 +136,13 @@ public class DashboardPanel extends JPanel {
             btnStartExam.setText("⏳ Generating via AI... Please Wait");
             btnStartExam.setBackground(UiTheme.DISABLED);
 
-            SwingWorker<java.util.List<Questions> , Void> aiWorker = new SwingWorker<>() {
+            SwingWorker<List<Questions> , Void> aiWorker = new SwingWorker<>() {
 
                 @Override
                 protected List<Questions> doInBackground() throws Exception {
                     System.out.println("[DASHBOARD] Fetching questions for: " + topic);
 
-                    return Ollama.generateExam(subject,topic, 10);
+                    return Ollama.generateExam(subject,topic, 5);
                 }
 
                 @Override 
