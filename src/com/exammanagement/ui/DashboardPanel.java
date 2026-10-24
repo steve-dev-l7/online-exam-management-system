@@ -18,6 +18,7 @@ public class DashboardPanel extends JPanel {
     private static JTextField txtTopic;
     private static JButton btnStartExam;
     private JLabel lblTotalScore;
+    private static JButton logout;
     
     JPanel leaderboardCard;
 
@@ -34,12 +35,16 @@ public class DashboardPanel extends JPanel {
         lblWelcome.setFont(new Font("SansSerif", Font.BOLD, 26));
         lblWelcome.setForeground(UiTheme.TEXT);
         
-        JLabel lblStatus = new JLabel("🟢 SESSION ACTIVE", JLabel.RIGHT);
-        lblStatus.setFont(new Font("Monospaced", Font.BOLD, 12));
-        lblStatus.setForeground(UiTheme.SUCCESS);
+        logout = new JButton("Logout");
+        logout.setFont(new Font("Monospaced", Font.BOLD, 12));
+        stylePrimaryButton(logout);
         
         headerPanel.add(lblWelcome, BorderLayout.WEST);
-        headerPanel.add(lblStatus, BorderLayout.EAST);
+        headerPanel.add(logout, BorderLayout.EAST);
+
+        logout.addActionListener(e->{
+            MainFrame.instance.switchScreen("LOGIN");
+        });
 
         // 2. Main Content Split (Left: Exam Config, Right: Stats & Leaderboard)
         JPanel mainSplitPanel = new JPanel(new GridLayout(1, 2, 30, 0));
@@ -320,7 +325,7 @@ public class DashboardPanel extends JPanel {
 
         // DB connection vazhiya top scorers-a fetch pandrom
         UserDao userDao = new UserDao();
-        java.util.List<Users> topScorers = userDao.getTopScorers();
+        List<Users> topScorers = userDao.getTopScorers();
         
         Color[] medalColors = {
             UiTheme.GOLD,

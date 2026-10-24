@@ -27,6 +27,8 @@ public class MainFrame extends JFrame{
 
     private ResultPanel resultPanel;
 
+    private SignUpPanel signUpPanel;
+
     public MainFrame(){
 
         instance = this;
@@ -53,13 +55,13 @@ public class MainFrame extends JFrame{
         dashboardPanel = new DashboardPanel();
         examPanel = new ExamPanel();
         resultPanel = new ResultPanel();
-        
+        signUpPanel = new SignUpPanel();
 
         mainContainer.add(loginPanel, "LOGIN");
         mainContainer.add(dashboardPanel, "DASHBOARD");
         mainContainer.add(examPanel, "EXAM");
         mainContainer.add(resultPanel,"RESULT");
-        
+        mainContainer.add(signUpPanel,"SIGNUP");
 
         add(mainContainer);
         cardLayout.show(mainContainer, "LOGIN");

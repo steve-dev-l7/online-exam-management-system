@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import com.exammanagement.core.DatabaseConnector;
 import com.exammanagement.model.Users;
 
@@ -90,6 +91,28 @@ public class UserDao {
             System.out.println("[ERROR] Failed to update score in DB.");
             e.printStackTrace();
         }
+    }
+
+    public String createAccount(String name, String password, String rePassword){
+        String query = "INSERT INTO USERS (username, password,score) VALUES(?,?,0)";
+
+        String response;
+
+        try{
+            Connection con = DatabaseConnector.getConnection();
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1,name);
+            pst.setString(2,password);
+            pst.execute();
+
+            response = "Account created sucessfully! now you can login with username and password";
+            
+        }catch(Exception e){
+            response = "[ERROR] Failed to create account in DB.";
+            e.printStackTrace();
+        }
+
+        return response;
     }
     
 }

@@ -107,7 +107,7 @@ public class LoginPanel extends JPanel {
         btnSignIn.setForeground(UiTheme.ON_ACCENT);
         btnSignIn.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        JButton btnReset = new JButton("Reset") {
+        JButton btnSignUp = new JButton("Signup") {
             @Override
             protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g.create();
@@ -120,12 +120,12 @@ public class LoginPanel extends JPanel {
                 g2.dispose();
             }
         };
-        btnReset.setContentAreaFilled(false);
-        btnReset.setBorderPainted(false);
-        btnReset.setFocusPainted(false);
-        btnReset.setFont(new Font("SansSerif", Font.BOLD, 13));
-        btnReset.setForeground(UiTheme.MUTED_TEXT);
-        btnReset.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnSignUp.setContentAreaFilled(false);
+        btnSignUp.setBorderPainted(false);
+        btnSignUp.setFocusPainted(false);
+        btnSignUp.setFont(new Font("SansSerif", Font.BOLD, 13));
+        btnSignUp.setForeground(UiTheme.MUTED_TEXT);
+        btnSignUp.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         gbcBtn.gridx = 0;
         gbcBtn.weightx = 0.75;
@@ -134,7 +134,7 @@ public class LoginPanel extends JPanel {
         gbcBtn.gridx = 1;
         gbcBtn.weightx = 0.25;
         gbcBtn.insets = new Insets(0, 10, 0, 0);
-        buttonRow.add(btnReset, gbcBtn);
+        buttonRow.add(btnSignUp, gbcBtn);
 
         // 6. Footer Status
         JPanel footerRow = new JPanel(new BorderLayout());
@@ -177,9 +177,8 @@ public class LoginPanel extends JPanel {
         // Actions
         btnSignIn.addActionListener(e -> attemptLogin());
         
-        btnReset.addActionListener(e -> {
-            txtUsername.setText("");
-            txtPassword.setText("");
+        btnSignUp.addActionListener(e -> {
+            MainFrame.instance.switchScreen("SIGNUP");
         });
     }
 
